@@ -1,5 +1,3 @@
-// credit to omaruvu for writing much of the code
-
 var E = {};
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
@@ -298,7 +296,7 @@ Game.registerMod("Eercermer", {
             if (byte < 0 || byte > 26*26*13*13*13) return; // invalid seeds are bad.
             const bit = num%8;
             E.progress[byte] |= 2**bit;
-            console.log(E.progress[byte] |= 2**bit);
+            // console.log(E.progress[byte] |= 2**bit);
             if (Game.HasAchiev("Keeper of the conservatory")) {
                 for (let i of E.progress) {
                     if (E.progress[i] < 255) {
@@ -740,7 +738,7 @@ Game.registerMod("Eercermer", {
         str += '|';
 
         //db.transaction("saveProgress", "readwrite").objectStore("seedProgress").put(E.progress, Game.startDate);
-        console.log(str)
+        // console.log(str)
         return str; 
 
     },
@@ -787,7 +785,7 @@ Game.registerMod("Eercermer", {
             E.gardenCompletion.push([";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3", ";3"]) // 5 * 6
         }
 
-        console.log(str);
+        // console.log(str);
         str = str.split('|');
         let strIn = str[0].split(',');
         for (let i = 0; i < strIn.length; i++) {
