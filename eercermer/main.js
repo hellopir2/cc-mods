@@ -492,7 +492,7 @@ Game.registerMod("Eercermer", {
             if (Game.Objects['Farm'].minigameLoaded && !E.updateGarden) {
                 M = Game.Objects['Farm'].minigame;
                 if (isv(E.garden)){
-                    M.load(E.garden);
+                    M.load(E.garden); // equivalent to having had the garden frozen since the mod was loaded.
                     E.garden = undefined;
                 }
                 M.soilsById.soilsById = [];
