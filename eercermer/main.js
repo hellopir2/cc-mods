@@ -1,3 +1,5 @@
+// credit to omaruvu for writing most of the code
+
 var E = {};
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
