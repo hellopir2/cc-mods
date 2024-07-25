@@ -494,7 +494,7 @@ Game.registerMod("Eercermer", {
             if (Game.Objects['Farm'].minigameLoaded && !E.updateGarden) {
                 M = Game.Objects['Farm'].minigame;
                 if (isv(E.garden)){
-                    if (E.garden != M.save()) {
+                    if (E.garden.split(' ').slice(1).join() != M.save().split(' ').slice(1).join()) {
 			E.cheating = 1;
 		    }
 		    E.garden = undefined;
@@ -817,6 +817,14 @@ Game.registerMod("Eercermer", {
         strIn = str[2].split(',');
         if (isv(strIn[0])) { E.loadCompletionistGardener(strIn[0]); }
         if (isv(strIn[1]) && E.cheating == 0) { E.garden = strIn[1]; }
+
+	if (isv(E.garden) && Game.Objects['Farm'].minigameLoaded){
+	    if (E.garden.split(' ').slice(1).join() != Game.Objects['Farm'].minigame.save().split(' ').slice(1).join()) {
+		E.cheating = 1;
+	    }
+	    E.garden = undefined;
+	}
+	    
         /*db.transaction("saveProgress").objectStore("seedProgress").get(Game.startDate).onsuccess = (eveny) => {
             ${E.progress}
         }*/
