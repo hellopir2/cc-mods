@@ -227,6 +227,8 @@ Game.registerMod("Eercermer", {
     //
     init: function () {
 
+	eval('Game.LoadSave='+Game.LoadSave.toString().replace(`//mod data`, `Game.modSaveData['Eercermer']='';`))
+
         var img = "https://hellopir2.github.io/cc-mods/img/eercermerIcons.png"; //this is used for custom icons, instead of typing the link everytime. should be added later
 
         E.updateGarden = false;
@@ -790,10 +792,12 @@ Game.registerMod("Eercermer", {
         }
 
         // console.log(str);
+	if (!isv(str)) { str = '||||||||||'; } // just in case.
         str = str.split('|');
         let strIn = str[0].split(',');
-        for (let i = 0; i < strIn.length; i++) {
+        for (let i = 0; i < E.achievements.length; i++) {
             if (isv(strIn[i])) { E.achievements[i].won = parseFloat(strIn[i]); }
+	    else { E.achievements[i].won = 0; }
         }
 
         strIn = str[1].split(',');
