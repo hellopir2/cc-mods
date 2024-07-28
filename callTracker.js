@@ -1,3 +1,4 @@
+var sed;
 var asdf = Math.seedrandom;
 var rn = document.createElement('span');
 rn.id = "rng";
@@ -10,7 +11,7 @@ versionNumber.appendChild(see)
 Math.seedrandom = (a) => {
     count = 0;
     rng.innerHTML = count;
-    (a == undefined)?asdf():asdf(a);
+    sed=(a == undefined)?asdf():asdf(a);
     curSeed.innerHTML = a;
     p = Math.random;
     Math.random = () => {
