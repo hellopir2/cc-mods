@@ -79,7 +79,18 @@ function simulateGC(wrath, cc)
     if (Game.shimmerTypes.golden.last!='' && random()<0.8 && list.indexOf(Game.shimmerTypes.golden.last)!=-1) list.splice(list.indexOf(Game.shimmerTypes.golden.last),1);//80% chance to force a different one
     if (random()<0.0001) list.push('blab');
     var choice=myChoose(list);
-    
+
+        //effect multiplier (from lucky etc)
+    var mult=1;
+    //if (me.wrath>0 && Game.hasAura('Unholy Dominion')) mult*=1.1;
+    //else if (me.wrath==0 && Game.hasAura('Ancestral Metamorphosis')) mult*=1.1;
+    if (wrath>0) mult*=1+Game.auraMult('Unholy Dominion')*0.1;
+    else if (wrath==0) mult*=1+Game.auraMult('Ancestral Metamorphosis')*0.1;
+    if (Game.Has('Green yeast digestives')) mult*=1.01;
+    if (Game.Has('Dragon fang')) mult*=1.03;
+    if (!wrath) mult*=Game.eff('goldenCookieGain');
+    else mult*=Game.eff('wrathCookieGain');
+
     if (Game.shimmerTypes.golden.chain>0) choice='chain cookie';
     // if (me.force!='') {this.chain=0;choice=me.force;me.force='';} not simulating forces obviously
     // if (choice!='chain cookie') this.chain=0;
@@ -212,4 +223,6 @@ function simulateGC(wrath, cc)
     // else PlaySound('snd/shimmerClick.mp3');
     // me.die();
 }
+
+findEff=(eff)=>{let cur=count;while(true){if(simulateGC(false,cur).includes(eff)){return cur;}cur++;}}
 
