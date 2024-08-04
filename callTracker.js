@@ -52,7 +52,7 @@ Math.seedrandom = (seed) => {
 
 function simulateGC(wrath, cc)
 {   
-    call_index = cc?cc:count;
+    call_index = cc??count;
     //select an effect
     var list=[];
     if (wrath) list.push('clot','multiply cookies','ruin cookies');
@@ -226,3 +226,4 @@ function simulateGC(wrath, cc)
 
 findEff=(eff)=>{let cur=count;while(true){if(simulateGC(false,cur).includes(eff)){return cur;}cur++;}}
 
+findThreshold=(t)=>{t=t??0.0001;let cur=count;while(true){call_index=cur;if(random()<t){return cur;}cur++;}}
