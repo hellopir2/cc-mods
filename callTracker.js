@@ -225,6 +225,6 @@ function simulateGC(wrath, cc)
     // me.die();
 }
 
-findEff=(eff)=>{if(str_seed === undefined) return false;let cur=count;while(true){if(simulateGC(false,cur).includes(eff)){return cur;}cur++;}}
+findEff=(eff,wrath)=>{if(str_seed === undefined) return false;let cur=count;while(true){if(simulateGC(wrath,cur).includes(eff)){return cur;}cur++;}}
 
 findThreshold=(t)=>{if(str_seed === undefined) return false;t=t??0.0001;let cur=count;while(true){call_index=cur;if(random()<t){return cur;}cur++;}}
