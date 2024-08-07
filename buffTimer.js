@@ -14,3 +14,4 @@ me.desc=me.desc.split(' for ')[0]+' for '+Game.sayTime(me.time,-1);
 eval(\`l('buff'+me.id).onmouseover = function onmouseover(event){\${Game.getTooltip('<div class="prompt" style="min-width:200px;text-align:center;font-size:11px;margin:8px 0px;" id="tooltipBuff"><h3>'+me.dname+'</h3><div class="line"></div>'+me.desc+'</div>','left',true).split('"')[3]}}\`);`))
 
 // todo: update buff timer while hovering.
+// todo: prevent maxTime from updating for cursed finger when using stretch time or buff stacking, also fix tooltip.
