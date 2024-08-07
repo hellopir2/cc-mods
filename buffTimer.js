@@ -15,3 +15,4 @@ eval(\`l('buff'+me.id).onmouseover = function onmouseover(event){\${Game.getTool
 
 // todo: update buff timer while hovering.
 // todo: prevent maxTime from updating for cursed finger when using stretch time or buff stacking, also fix tooltip.
+// todo: add timer to cookie storm default
