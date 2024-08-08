@@ -1,6 +1,7 @@
 // credit to omaruvu for writing most of the code
 
 var E = {};
+var counter = 0; // garden
 
 function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
@@ -501,74 +502,76 @@ Game.registerMod("Eercermer", {
 		    }
 		    E.garden = undefined;
                 }
-                M.soilsById.soilsById = [];
-                var n = 0;
-                for (var i in M.soils) {
-                    M.soils[i].id = n;
-                    M.soils[i].key = i;
-                    M.soilsById[n] = M.soils[i];
-                    n++;
-                }
-
-                M.harvestAll = function (type, mature, mortal) //declaring harvestAll so M.convert works
-                {
-                    var harvested = 0;
-                    for (var i = 0; i < 2; i++) //we do it twice to take care of whatever spawns on kill
-                    {
-                        for (var y = 0; y < 6; y++) {
-                            for (var x = 0; x < 6; x++) {
-                                if (M.plot[y][x][0] >= 1) {
-                                    var doIt = true;
-                                    var tile = M.plot[y][x];
-                                    var me = M.plantsById[tile[0] - 1];
-                                    if (type && me != type) doIt = false;
-                                    if (mortal && me.immortal) doIt = false;
-                                    if (mature && tile[1] < me.mature) doIt = false;
-
-                                    if (doIt) harvested += M.harvest(x, y) ? 1 : 0;
-                                }
-                            }
-                        }
-                    }
-                    if (harvested > 0) setTimeout(function () { PlaySound('snd/harvest1.mp3', 1, 0.2); }, 50);
-                    if (harvested > 2) setTimeout(function () { PlaySound('snd/harvest2.mp3', 1, 0.2); }, 150);
-                    if (harvested > 6) setTimeout(function () { PlaySound('snd/harvest3.mp3', 1, 0.2); }, 250);
-                }
-
-                eval('Game.Objects["Farm"].minigame.harvest=' + Game.Objects["Farm"].minigame.harvest.toString().replace(`M.harvestsTotal++;`, `M.harvestsTotal++; E.harvestSac++;`));
-                eval('Game.Objects["Farm"].minigame.useTool=' + Game.Objects["Farm"].minigame.useTool.toString().replace(`M.toRebuild=true;`, `M.toRebuild=true; E.plantedSac++;`));
-
-                eval('Game.Objects["Farm"].minigame.convert=' + Game.Objects["Farm"].minigame.convert.toString().replace(`M.convertTimes++;`, `M.convertTimes++; if (E.harvestSac <= 2 && E.plantedSac <=2 && E.cheating == 0) Game.Win("Flint when?"); E.harvestSac = 0; E.plantedSac = 0; E.cheating = 0;`));
-
-                eval('Game.Objects["Farm"].minigame.harvest=' + Game.Objects["Farm"].minigame.harvest.toString().replace(`				if (tile[1]>=me.mature)
-				{
-					if (M.unlockSeed(me)) Game.Popup('('+me.name+')<br>'+loc("Unlocked %1 seed.",me.name),Game.mouseX,Game.mouseY);
-					M.harvests++;
-					M.harvestsTotal++; E.harvestSac++;
-					if (M.harvestsTotal>=100) Game.Win('Botany enthusiast');
-					if (M.harvestsTotal>=1000) Game.Win('Green, aching thumb');
-				}`, `if (tile[1]>=me.mature)
-				{
-					if (M.unlockSeed(me)) Game.Popup('('+me.name+')<br>'+loc("Unlocked %1 seed.",me.name),Game.mouseX,Game.mouseY);
-					M.harvests++;
-					M.harvestsTotal++;
-					if (M.harvestsTotal>=100) Game.Win('Botany enthusiast');
-					if (M.harvestsTotal>=1000) Game.Win('Green, aching thumb');
-				}
-                var stage=0;
-                if (tile[1]>=me.mature) stage=4;
-                else if (tile[1]>=me.mature*0.666) stage=3;
-                else if (tile[1]>=me.mature*0.333) stage=2;
-                else stage=1;
-                if (tile[1]+Math.ceil(me.ageTick+me.ageTickR)>=100){
-                    E.gardenCompletion[(tile[0]-1) * 6 + y][24 + x] = tl[tile[0]-1] + 4;
-                }
-                else {
-                    E.gardenCompletion[(tile[0]-1) * 6 + y][(stage - 1) * 6 + x] = tl[tile[0]-1] + (stage - 1);
-                }`));
-
-                E.updateGarden = true;
-
+		if (counter == 0){
+	                M.soilsById.soilsById = [];
+	                var n = 0;
+	                for (var i in M.soils) {
+	                    M.soils[i].id = n;
+	                    M.soils[i].key = i;
+	                    M.soilsById[n] = M.soils[i];
+	                    n++;
+	                }
+	
+	                M.harvestAll = function (type, mature, mortal) //declaring harvestAll so M.convert works
+	                {
+	                    var harvested = 0;
+	                    for (var i = 0; i < 2; i++) //we do it twice to take care of whatever spawns on kill
+	                    {
+	                        for (var y = 0; y < 6; y++) {
+	                            for (var x = 0; x < 6; x++) {
+	                                if (M.plot[y][x][0] >= 1) {
+	                                    var doIt = true;
+	                                    var tile = M.plot[y][x];
+	                                    var me = M.plantsById[tile[0] - 1];
+	                                    if (type && me != type) doIt = false;
+	                                    if (mortal && me.immortal) doIt = false;
+	                                    if (mature && tile[1] < me.mature) doIt = false;
+	
+	                                    if (doIt) harvested += M.harvest(x, y) ? 1 : 0;
+	                                }
+	                            }
+	                        }
+	                    }
+	                    if (harvested > 0) setTimeout(function () { PlaySound('snd/harvest1.mp3', 1, 0.2); }, 50);
+	                    if (harvested > 2) setTimeout(function () { PlaySound('snd/harvest2.mp3', 1, 0.2); }, 150);
+	                    if (harvested > 6) setTimeout(function () { PlaySound('snd/harvest3.mp3', 1, 0.2); }, 250);
+	                }
+	
+	                eval('Game.Objects["Farm"].minigame.harvest=' + Game.Objects["Farm"].minigame.harvest.toString().replace(`M.harvestsTotal++;`, `M.harvestsTotal++; E.harvestSac++;`));
+	                eval('Game.Objects["Farm"].minigame.useTool=' + Game.Objects["Farm"].minigame.useTool.toString().replace(`M.toRebuild=true;`, `M.toRebuild=true; E.plantedSac++;`));
+	
+	                eval('Game.Objects["Farm"].minigame.convert=' + Game.Objects["Farm"].minigame.convert.toString().replace(`M.convertTimes++;`, `M.convertTimes++; if (E.harvestSac <= 2 && E.plantedSac <=2 && E.cheating == 0) Game.Win("Flint when?"); E.harvestSac = 0; E.plantedSac = 0; E.cheating = 0;`));
+	
+	                eval('Game.Objects["Farm"].minigame.harvest=' + Game.Objects["Farm"].minigame.harvest.toString().replace(`				if (tile[1]>=me.mature)
+					{
+						if (M.unlockSeed(me)) Game.Popup('('+me.name+')<br>'+loc("Unlocked %1 seed.",me.name),Game.mouseX,Game.mouseY);
+						M.harvests++;
+						M.harvestsTotal++; E.harvestSac++;
+						if (M.harvestsTotal>=100) Game.Win('Botany enthusiast');
+						if (M.harvestsTotal>=1000) Game.Win('Green, aching thumb');
+					}`, `if (tile[1]>=me.mature)
+					{
+						if (M.unlockSeed(me)) Game.Popup('('+me.name+')<br>'+loc("Unlocked %1 seed.",me.name),Game.mouseX,Game.mouseY);
+						M.harvests++;
+						M.harvestsTotal++;
+						if (M.harvestsTotal>=100) Game.Win('Botany enthusiast');
+						if (M.harvestsTotal>=1000) Game.Win('Green, aching thumb');
+					}
+	                var stage=0;
+	                if (tile[1]>=me.mature) stage=4;
+	                else if (tile[1]>=me.mature*0.666) stage=3;
+	                else if (tile[1]>=me.mature*0.333) stage=2;
+	                else stage=1;
+	                if (tile[1]+Math.ceil(me.ageTick+me.ageTickR)>=100){
+	                    E.gardenCompletion[(tile[0]-1) * 6 + y][24 + x] = tl[tile[0]-1] + 4;
+	                }
+	                else {
+	                    E.gardenCompletion[(tile[0]-1) * 6 + y][(stage - 1) * 6 + x] = tl[tile[0]-1] + (stage - 1);
+	                }`));
+	
+	                E.updateGarden = true;
+			counter++;
+		}
             }
         });
 
