@@ -2,7 +2,7 @@
 // avoiding having mod data because yes. this also means it's harder to lose the achievement, you can't just neuromancy it out, and you also can't just cheat it in unless you've read what this does.
 Game.registerMod("Speed baking IV",{
     init:function(){
-        this.spritesheet="https://hellopir2.github.io/cc-mods/img/sb4.png";
+        this.spritesheet="https://hellopir2.github.io/cc-mods/img/sb.png";
         if (Game.ready) this.createAchievements();
         else Game.registerHook("create", this.createAchievements);
 	      Game.Logic = eval('Game.Logic='+Game.Logic.toString().replace("if (timePlayed<=1000*60*15) Game.Win('Speed baking III');", "if (timePlayed<=1000*60*15) Game.Win('Speed baking III');\n\t\t\t\t\tif (timePlayed<=1000*60*5){ if(Game.vault.indexOf(-1)<0) { Game.vault.push(-1); Game.Win('Speed baking IV'); } else { Game.Achievements['Speed baking IV'].won=1; } }"));
