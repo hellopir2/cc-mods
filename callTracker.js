@@ -140,11 +140,11 @@ function simulateGC(wrath, cc)
         if (random()<0.01 || nextMoni>=maxPayout)
         {
             // this.chain=0;
-            popup='cookie chain ended';
+            popup='cookie chain (end)';
         }
         else
         {
-            popup='cookie chain';
+            popup='cookie chain (not end)';
         }
         // Game.Earn(moni);
     }
