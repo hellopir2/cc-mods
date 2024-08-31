@@ -542,21 +542,7 @@ Game.registerMod("Eercermer", {
 	
 	                eval('Game.Objects["Farm"].minigame.convert=' + Game.Objects["Farm"].minigame.convert.toString().replace(`M.convertTimes++;`, `M.convertTimes++; if (E.harvestSac <= 2 && E.plantedSac <=2 && E.cheating == 0) Game.Win("Flint when?"); E.harvestSac = 0; E.plantedSac = 0; E.cheating = 0;`));
 	
-	                eval('Game.Objects["Farm"].minigame.harvest=' + Game.Objects["Farm"].minigame.harvest.toString().replace(`				if (tile[1]>=me.mature)
-					{
-						if (M.unlockSeed(me)) Game.Popup('('+me.name+')<br>'+loc("Unlocked %1 seed.",me.name),Game.mouseX,Game.mouseY);
-						M.harvests++;
-						M.harvestsTotal++; E.harvestSac++;
-						if (M.harvestsTotal>=100) Game.Win('Botany enthusiast');
-						if (M.harvestsTotal>=1000) Game.Win('Green, aching thumb');
-					}`, `if (tile[1]>=me.mature)
-					{
-						if (M.unlockSeed(me)) Game.Popup('('+me.name+')<br>'+loc("Unlocked %1 seed.",me.name),Game.mouseX,Game.mouseY);
-						M.harvests++;
-						M.harvestsTotal++;
-						if (M.harvestsTotal>=100) Game.Win('Botany enthusiast');
-						if (M.harvestsTotal>=1000) Game.Win('Green, aching thumb');
-					}
+	                eval('Game.Objects["Farm"].minigame.harvest=' + Game.Objects["Farm"].minigame.harvest.toString().replace(`M.plot[y][x]=[0,0];`, `
 	                var stage=0;
 	                if (tile[1]>=me.mature) stage=4;
 	                else if (tile[1]>=me.mature*0.666) stage=3;
@@ -567,7 +553,8 @@ Game.registerMod("Eercermer", {
 	                }
 	                else {
 	                    E.gardenCompletion[(tile[0]-1) * 6 + y][(stage - 1) * 6 + x] = tl[tile[0]-1] + (stage - 1);
-	                }`));
+	                }
+		 	M.plot[y][x]=[0,0];`));
 	
 	                E.updateGarden = true;
 			counter++;
