@@ -466,7 +466,7 @@ Game.registerMod("Eercermer", {
                     }
                     for (let k = 0; k < 6; k++) {
                         for (let m = 0; m < 6; m++) {
-                            if (i == 21 && m % 5 == 0 && k % 5 == 0) { // can't get jqb on borders.
+                            if (i == 21 && (m % 5 == 0 || k % 5 == 0)) { // can't get jqb on borders.
                                 continue;
                             }
                             if (E.gardenCompletion[i * 6 + m][j * 6 + k] == ";3") {
