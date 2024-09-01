@@ -50,6 +50,25 @@ Math.seedrandom = (seed) => {
     return str_seed;
 }
 
+var effects = {
+    'frenzy': 0,
+    'clot': 1,
+    'multiply cookies': 2,
+    'ruin cookies': 3,
+    'blood frenzy': 4,
+    'chain cookie': 5,
+    'cookie storm': 6,
+    'everything must go': 7,
+    'click frenzy': 8,
+    'cursed finger': 9,
+    'building special': 10,
+    'building rust': 11,
+    'free sugar lump': 12,
+    'dragon harvest': 13,
+    'dragonflight': 14,
+    'blab': 15
+}
+
 function simulateGC(wrath, cc)
 {   
     if(str_seed === undefined) return false;
@@ -107,24 +126,24 @@ function simulateGC(wrath, cc)
         {
             if (Game.Objects[i].amount>=10) list.push(Game.Objects[i].id);
         }
-        if (list.length==0) {popup = 'frenzy';}//default to frenzy if no proper building
+        if (list.length==0) {popup = [effects['frenzy']];}//default to frenzy if no proper building
         else
         {
             var obj=myChoose(list);
             if (wrath && random()<0.3)
             {
-                popup = 'building rust: ' + Game.ObjectsById[obj].name;
+                popup = [effects['building rust'], Game.ObjectsById[obj].name];
             }
             else
             {
-                popup = 'building special: ' + Game.ObjectsById[obj].name;
+                popup = [effects['building special'], Game.ObjectsById[obj].name];
             }
         }
     }
     else if (choice=='dragonflight')
     {
-        popup = 'dragonflight';
-        if (random()<0.8) popup += ' override click frenzy';
+        popup = [effects[choice]];
+        if (random()<0.8) popup.push('override');
     }
     else if (choice=='chain cookie')
     {
@@ -140,18 +159,18 @@ function simulateGC(wrath, cc)
         if (random()<0.01 || nextMoni>=maxPayout)
         {
             // this.chain=0;
-            popup='cookie chain (end)';
+            popup=[effects[choice], "end"];
         }
         else
         {
-            popup='cookie chain (not end)';
+            popup=[effects[choice], "continue"];
         }
         // Game.Earn(moni);
     }
-    else if (choice=='cookie storm')
-    {
-        popup = 'cookie storm';
-    }
+    // else if (choice=='cookie storm')
+    // {
+    //     popup = 'cookie storm';
+    // }
     // choice can never be cookie storm drop.
     // else if (choice=='cookie storm drop')
     // {
@@ -201,10 +220,10 @@ function simulateGC(wrath, cc)
         'All cookies multiplied by 999!<br>All cookies divided by 999!',
         'Why?'
         ])):myChoose(loc("Cookie blab"));
-        popup='blab: ' + str;
+        popup=[effects[choice], str];
     }
     else {
-        popup = choice;
+        popup = [effects[choice]];
     }
     
     return popup;
@@ -225,6 +244,29 @@ function simulateGC(wrath, cc)
     // me.die();
 }
 
-findEff=(eff,wrath)=>{if(str_seed === undefined) return false;let cur=count;while(true){if(simulateGC(wrath,cur).includes(eff)){return cur;}cur++;}}
+findEff=(eff,wrath,threshold,bypass)=>{
+    if(str_seed === undefined) return false;
+    if(effects[eff] === undefined && !bypass) return false;
+    if(!bypass) eff = effects[eff];
+    let cur = count;
+    for(let i = 0; i < (threshold??1e7); i++){
+        if(simulateGC(wrath,cur).includes(eff)){
+            return [cur, simulateGC(wrath,cur)];
+        }
+        cur++;
+    }
+    return false;
+}
 
-findThreshold=(t)=>{if(str_seed === undefined) return false;t=t??0.0001;let cur=count;while(true){call_index=cur;if(random()<t){return cur;}cur++;}}
+findThreshold=(t)=>{
+    if(str_seed === undefined) return false;
+    t=t??0.0001;
+    let cur=count;
+    while(true){
+        call_index=cur;
+        if(random()<t){
+            return cur;
+        }
+        cur++;
+    }
+}
