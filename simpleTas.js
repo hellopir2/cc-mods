@@ -22,7 +22,7 @@ Game.registerMod("Simple CC Tas",{
             for(let i = 0; i < 4; i++){
                 M.castSpell(M.spells['gambler\'s fever dream']);
             }
-            while(Game.ObjectsById[7].level < 272){
+            while(Game.ObjectsById[7].level < 195){
                 Game.ObjectsById[7].levelUp();
             }
             legacyButton.click();
