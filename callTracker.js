@@ -27,10 +27,13 @@ try {
     curSeed.id = "curSeed";
     curSeed.style = "padding-left:8px;color:#ff0;"
     versionNumber.appendChild(curSeed);
+    topBar.innerHTML = "<p id='gcOutcome' style='margin:8px;width:100%;text-align:center;color:yellow;font-family:monospace;font-size:16px;pointer-events:none;'></p>";
+    gcOutcome = topBar.firstChild;
 }
 catch(e) {
     var call_count = {};
     var curSeed = {};
+    var gcOutcome = {};
 }
 
 Math.seedrandom = (seed) => {
@@ -45,8 +48,10 @@ Math.seedrandom = (seed) => {
         count++;
         call_count.innerHTML = count;
         cache.push(rMath.random());
+        gcOutcome.innerHTML = `Golden: ${simulateGC(undefined, undefined, true)}    <span style='color:red'>Wrath: ${simulateGC(true, undefined, true)}</span>`;
         return r_copy();
     }
+    gcOutcome.innerHTML = `Golden: ${simulateGC(undefined, undefined, true)}    <span style='color:red'>Wrath: ${simulateGC(true, undefined, true)}</span>`;
     return str_seed;
 }
 
@@ -69,7 +74,26 @@ var effects = {
     'blab': 15
 }
 
-function simulateGC(wrath, cc)
+var effects2 = {
+    0: "Frenzy",
+    1: "Clot",
+    2: "Lucky",
+    3: "Ruin",
+    4: "EF",
+    5: "Chain",
+    6: "Storm",
+    7: "EMG",
+    8: "CF",
+    9: "CUF",
+    10: "BS",
+    11: "BR",
+    12: "Sweet",
+    13: "DH",
+    14: "DF",
+    15: "Blab"
+}
+
+function simulateGC(wrath, cc, abbr)
 {   
     if(str_seed === undefined) return false;
     call_index = cc??count;
@@ -224,6 +248,10 @@ function simulateGC(wrath, cc)
     }
     else {
         popup = [effects[choice]];
+    }
+
+    if(abbr) {
+        popup = [effects2[popup[0]]].concat(popup.slice(1));
     }
     
     return popup;
