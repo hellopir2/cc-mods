@@ -308,7 +308,7 @@ findThreshold=(t)=>{
 
 findDeorl=(seedList, depth, cloneCount, threshold)=>{
     let o = [];
-    (depth ??= 1000), (cloneCount ??= 43), (threshold ??= 0.001);
+    (seedList ??= [Game.seed]), (depth ??= 1000), (cloneCount ??= 43), (threshold ??= 0.001);
     for (let a = 0; a < cloneCount; a++) {
         for (var t of seedList) {
             qvq.seedrandom(t + " clone " + a);
