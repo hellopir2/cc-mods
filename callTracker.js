@@ -315,11 +315,11 @@ findDeorl=(seedList, depth, cloneCount, threshold)=>{
             for (let i = 0; i < 5; i++) qvq.random();
             let rands = [];
             for (let i = 0; i < depth; i++) rands.push(qvq.random())/*, (rands[i] < 0.01 && console.log(rands[i], i+5, a))*/;
-            let p = rands.findIndex(x => x < threshold);
-            while(p != -1) {
-                if (p > -1 && rands[p + 3] < 0.01) o.push([t, "clone " + a, "call " + (p+5)]);
-                else if (p > -1 && rands[p + 4] < 0.01) o.push([t, "clone " + a, "call " + (p+5) , "1 change"]);
-                p = rands.findIndex((x, y) => (x < threshold && y > p));
+            for (let p = 0; p < depth-3; p++) {
+                if (rands[p] < threshold) {
+                    if (p > -1 && rands[p + 3] < 0.01) o.push([t, "clone " + a, "call " + (p+5)]);
+                    else if (p > -1 && rands[p + 4] < 0.01) o.push([t, "clone " + a, "call " + (p+5) , "1 change"]);
+                }
             }
         }
     }
