@@ -306,7 +306,7 @@ findThreshold=(t)=>{
 
 // code modified from yeetdragon
 
-findDeorl=(seedList, depth, cloneCount, threshold)=>{
+findDeorl=(seedList, depth, cloneCount, threshold, reindeer)=>{
     let o = [];
     (seedList ??= [Game.seed]), (depth ??= 1000), (cloneCount ??= 43), (threshold ??= 0.001);
     for (let a = 0; a < cloneCount; a++) {
@@ -317,8 +317,13 @@ findDeorl=(seedList, depth, cloneCount, threshold)=>{
             for (let i = 0; i < depth; i++) rands.push(qvq.random())/*, (rands[i] < 0.01 && console.log(rands[i], i+5, a))*/;
             for (let p = 0; p < depth-3; p++) {
                 if (rands[p] < threshold) {
-                    if (p > -1 && rands[p + 3] < 0.01) o.push([t, "clone " + a, "call " + (p+5)]);
-                    else if (p > -1 && rands[p + 4] < 0.01) o.push([t, "clone " + a, "call " + (p+5) , "1 change"]);
+		    if(reindeer) {
+			if (p > -1 && rands[p + 2] < 0.01) o.push([`seed: ${t}, spawn: ${rands[p]}, id: ${a}, call: ${p+5}`]);
+		    }
+		    else {
+                    	if (p > -1 && rands[p + 3] < 0.01) o.push([`seed: ${t}, spawn: ${rands[p]}, id: ${a}, call: ${p+5}`]);
+                    	else if (p > -1 && rands[p + 4] < 0.01) o.push([`seed: ${t}, spawn: ${rands[p]}, id: ${a}, call: ${p+5}, 1 change`]);
+		    }
                 }
             }
         }
