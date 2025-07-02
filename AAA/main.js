@@ -41,11 +41,11 @@ Game.registerMod("Additional Achievements Addon",{
     createAchievements: function(){
         this.achievements = [];
         this.achievements.push(new Game.Achievement('Silent Wrinkler','Pop a wrinkler that had cookies... without triggering the notification.',[27,26]));
-        this.achievements.push(new Game.Achievement('When the cookies ascend just right²', 'Ascend with exactly <b>1 sextillion cookies</b>."',[0, 0, "https://hellopir2.github.io/cc-mods/img/wtcajr2.png"]));
+        this.achievements.push(new Game.Achievement('When the cookies ascend just right²', 'Ascend with exactly <b>1 sextillion cookies</b>.',[0, 0, "https://hellopir2.github.io/cc-mods/img/wtcajr2.png"]));
         this.achievements.push(new Game.Achievement('When the cookies ascend just wrong', 'Ascend with the cookie display showing <b>1,000,000,000,000 cookies</b>, but having a different actual cookie amount.',[26,17]));
         this.achievements.push(new Game.Achievement('Skill issue','Have a spell backfire while your ineptitude is dimished without using Gambler\'s Fever Dream',[0,7])); // from yeetdragon
         this.achievements.push(new Game.Achievement('Frame Perfection','Have all six grimoire buffs simultaneously for at least <b>5 seconds</b>.',[32,27]));
-        this.achievements.push(new Game.Achievement('Slow and steady','Bake less than <b>0.001 cookies</b> per second.',[30, 13]));
+        this.achievements.push(new Game.Achievement('Slow and steady','Bake less than <b>1/1000 cookies</b> per second.',[30, 13]));
         this.achievements.push(new Game.Achievement('Ho ho holy Grail','Pop a reindeer <b>during a combined frenzy, dragon harvest, building special, click frenzy, elder frenzy, and dragonflight</b>.',[20, 6]));
         //this.achievements.push(new Game.Achievement('I give up', 'Get to <b>1 million cookies</b> baked with exactly <b>2</b> cookie clicks.',[13, 7]));
         for(let i of this.achievements){i.pool="add";i.order=1412;}
