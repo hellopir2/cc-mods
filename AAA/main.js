@@ -70,7 +70,6 @@ Game.registerMod("Additional Achievements Addon",{
         this.achievements.push(new Game.Achievement('Ho ho holy Grail','Pop a reindeer <b>during a combined frenzy, dragon harvest, building special, click frenzy, elder frenzy, and dragonflight</b>.',[20, 6]));
         this.achievements.push(new Game.Achievement('Meddling with the odds','Uproot an <b>age 1 meddleweed</b> for spores.',[1, 29, "https://cdn.dashnet.org/cookieclicker/img/gardenPlants.png"]));
         this.achievements.push(new Game.Achievement('Cooki* Click*r','Bake <b>1 septillion cookies</b> in one ascension without owning any buildings or upgrades containing the letter "e".',[4, 10]));
-	// todo: add no E ascend
         //this.achievements.push(new Game.Achievement('I give up', 'Get to <b>1 million cookies</b> baked with exactly <b>2</b> cookie clicks.',[13, 7]));
         for(let i of this.achievements){i.pool="add";i.order=1412;}
         LocalizeUpgradesAndAchievs();
