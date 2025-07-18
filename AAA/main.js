@@ -29,6 +29,10 @@ Game.registerMod("Additional Achievements Addon",{
         Game.CalculateGains= eval('Game.CalculateGains='+Game.CalculateGains.toString().replace("var rawCookiesPs=Game.cookiesPs*mult;", "var rawCookiesPs=Game.cookiesPs*mult;\n\t\t\tif (0 < rawCookiesPs && rawCookiesPs < 1/1000) Game.Win('Slow and steady');"));
         Game.shimmerTypes.reindeer.popFunc = eval('Game.shimmerTypes.reindeer.popFunc='+Game.shimmerTypes.reindeer.popFunc.toString().replace("if (Game.hasBuff('Elder frenzy')) Game.Win('Eldeer');", "if (Game.hasBuff('Elder frenzy')) Game.Win('Eldeer');\n\t\t\t\t\tif (Game.hasBuff('Frenzy') && Game.hasBuff('Dragon Harvest') && (Game.hasBuff('High-five') || Game.hasBuff('Congregation') || Game.hasBuff('Luxuriant harvest') || Game.hasBuff('Ore vein') || Game.hasBuff('Oiled-up') || Game.hasBuff('Juicy profits') || Game.hasBuff('Fervent adoration') || Game.hasBuff('Manabloom') || Game.hasBuff('Delicious lifeforms') || Game.hasBuff('Breakthrough') || Game.hasBuff('Righteous cataclysm') || Game.hasBuff('Golden ages') || Game.hasBuff('Extra cycles') || Game.hasBuff('Solar flare') || Game.hasBuff('Winning streak') || Game.hasBuff('Macrocosm') || Game.hasBuff('Refactoring') || Game.hasBuff('Cosmic nursery') || Game.hasBuff('Brainstorm') || Game.hasBuff('Deduplication')) && Game.hasBuff('Click frenzy') && Game.hasBuff('Elder frenzy') && Game.hasBuff('Dragonflight')) Game.Win('Ho ho holy Grail');"));
 
+        Game.registerHook('reset', (hard) => {
+            if (Game.gainedPrestige > 0 && Date.now() - Game.startDate < 500) Game.Win('Not a TAS');
+        });
+
         Game.registerHook('check', () => {
             if (Game.hasBuff('Haggler\'s luck').time >= 150 && Game.hasBuff('Haggler\'s misery').time >= 150 && Game.hasBuff('Crafty pixies').time >= 150 && Game.hasBuff('Nasty goblins').time >= 150 && Game.hasBuff('Magic adept').time >= 150 && Game.hasBuff('Magic inept').time >= 150) Game.Win('Frame perfect');
             
@@ -52,11 +56,13 @@ Game.registerMod("Additional Achievements Addon",{
                 AAA.updatedGrimoire = true;
             }
 
-	    if (Game.Objects['Farm'].minigameLoaded && !AAA.updatedGarden) {
-		let M = Game.Objects['Farm'].minigame;
-		M.plants.meddleweed.onKill = eval('M.plants.meddleweed.onKill='+M.plants.meddleweed.onKill.toString().replace("if (Math.random()<0.2*(age/100)) M.plot[y][x]=[M.plants[choose(['brownMold','crumbspore'])].id+1,0];", "if (Math.random()<0.2*(age/100)) { if (age==1) Game.Win('Meddling with the odds'); M.plot[y][x]=[M.plants[choose(['brownMold','crumbspore'])].id+1,0];}"));
-		AAA.updatedGarden = true;
-	    }
+            if (Game.Objects['Farm'].minigameLoaded && !AAA.updatedGarden) {
+                let M = Game.Objects['Farm'].minigame;
+                M.plants.meddleweed.onKill = eval('M.plants.meddleweed.onKill='+M.plants.meddleweed.onKill.toString().replace("if (Math.random()<0.2*(age/100)) M.plot[y][x]=[M.plants[choose(['brownMold','crumbspore'])].id+1,0];", "if (Math.random()<0.2*(age/100)) { if (age==1) Game.Win('Meddling with the odds'); M.plot[y][x]=[M.plants[choose(['brownMold','crumbspore'])].id+1,0];}"));
+                AAA.updatedGarden = true;
+            }
+
+            if (Game.shimmerTypes['golden'].n >= 10) Game.Win('Ten-leaf cookie');
         });
     },
     createAchievements: function(){
@@ -70,6 +76,8 @@ Game.registerMod("Additional Achievements Addon",{
         this.achievements.push(new Game.Achievement('Ho ho holy Grail','Pop a reindeer <b>during a combined frenzy, dragon harvest, building special, click frenzy, elder frenzy, and dragonflight</b>.',[20, 6]));
         this.achievements.push(new Game.Achievement('Meddling with the odds','Uproot an <b>age 1 meddleweed</b> for spores.',[1, 29, "https://cdn.dashnet.org/cookieclicker/img/gardenPlants.png"]));
         this.achievements.push(new Game.Achievement('Cooki* Click*r','Bake <b>1 septillion cookies</b> in one ascension without owning any buildings or upgrades containing the letter "e".',[4, 10]));
+        this.achievements.push(new Game.Achievement('Not a TAS','Ascend in less than <b>half a second</b> after starting a new ascension.',[15, 15]));
+        this.achievements.push(new Game.Achievement('Ten-leaf cookie','Have <b>10</b> golden cookies on the screen at once.',[4, 0, "https://hellopir2.github.io/cc-mods/img/eercermerIcons.png"]));
         //this.achievements.push(new Game.Achievement('I give up', 'Get to <b>1 million cookies</b> baked with exactly <b>2</b> cookie clicks.',[13, 7]));
         for(let i of this.achievements){i.pool="add";i.order=1412;}
         LocalizeUpgradesAndAchievs();
