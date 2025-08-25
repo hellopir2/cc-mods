@@ -303,7 +303,7 @@ Game.registerMod("Eercermer", {
             E.progress[byte] |= 2**bit;
             // console.log(E.progress[byte] |= 2**bit);
             if (Game.HasAchiev("Keeper of the conservatory")) {
-                for (let i of E.progress) {
+                for (let i in E.progress) {
                     if (E.progress[i] < 255) {
                         return;
                     }
