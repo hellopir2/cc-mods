@@ -30,7 +30,7 @@ try {
     curSeed.id = "curSeed";
     curSeed.style = "padding-left:8px;color:#ff0;"
     versionNumber.appendChild(curSeed);
-    topBar.innerHTML = "<p id='gcOutcome' style='margin:8px;width:100%;text-align:center;color:yellow;font-family:monospace;font-size:16px;pointer-events:none;'></p>";
+    topBar.innerHTML = "<p id='gcOutcome' style='margin:8px;width:100%;text-align:center;color:yellow;font-family:monospace;font-size:16px;pointer-events:none;'></p><div id='topBarEnd' style='float:right;padding:0px;'></div>";
     gcOutcome = topBar.firstChild;
 }
 catch(e) {
@@ -793,7 +793,7 @@ simulateTicker=function(cc, manual)
 		
 		if (Game.TickerN%2==0)
 		{
-			if (Game.Objects['Grandma'].amount>0) list.push(myChoose([
+			if (Game.Objects['Cursor'].amount>0) list.push(myChoose([
 			'Your rolling pins are rolling and pinning!',
 			'Production is steady!'
 			]));
@@ -807,16 +807,34 @@ simulateTicker=function(cc, manual)
 			'Scores of cookies come out of your kitchens.',
 			'Today, new recruits are joining your kitchens!'
 			]));
+
+			if (Game.Objects['Mine'].amount>0) list.push(myChoose([
+			'Your secret recipes are kept safely inside a giant underground vault.',
+			'Your chefs are working on new secret recipes!'
+			]));
 			
 			if (Game.Objects['Factory'].amount>0) list.push(myChoose([
 			'Your factories are producing an unending stream of baked goods.',
 			'Your factory workers decide to go on strike!',
 			'It\'s safety inspection day in your factories.'
 			]));
+
+			if (Game.Objects['Bank'].amount>0) list.push(choose([
+			'Your shareholders are watching your business with great interest.',
+			'Your investors are expecting to get their money\'s worth.',
+			'Money talks! Your shares are soaring in value.'
+			]));
+
+			if (Game.Objects['Temple'].amount>0) list.push(choose([
+			'Your social media managers are engaging in friendly ribbing with other brands!',
+			'Another viral cookie post! Your social media managers are killing it.',
+			'Your social media posts are fine-tuned for maximal user engagement!'
+			]));
 			
-			if (Game.Objects['Mine'].amount>0) list.push(myChoose([
-			'Your secret recipes are kept safely inside a giant underground vault.',
-			'Your chefs are working on new secret recipes!'
+			if (Game.Objects['Wizard tower'].amount>0) list.push(choose([
+			'Your cookie memes have been deemed "epic" and "awesomesauce" by a panel of experts!',
+			'"Cringe" or "based"? Experts weigh in on your cookie memes.',
+			'You\'ve successfully covered up another scandal with an onslaught of mildly-entertaining memes!'
 			]));
 			
 			if (Game.Objects['Shipment'].amount>0) list.push(myChoose([
