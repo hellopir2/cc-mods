@@ -332,6 +332,22 @@ findDeorl=(seedList, depth, cloneCount, threshold, reindeer)=>{
     console.log("" + o.join("\n"));
 }
 
+findCloneThreshold=(seedList, depth, cloneCount, threshold)=>{
+    let o = [];
+    (seedList ??= [Game.seed]), (depth ??= 1000), (cloneCount ??= 43), (threshold ??= 0.0005);
+    for (let a = 0; a < cloneCount; a++) {
+        for (var t of seedList) {
+            qvq.seedrandom(t + " clone " + a);
+            for (let i = 0; i < 5; i++) qvq.random();
+            let rands = [];
+            for (let i = 0; i < 30; i++) rands.push(qvq.random());
+            let p = rands.findIndex(x => x < threshold);
+            if (p > -1) o.push([t, "clone " + a])
+        }
+    }
+    return "" + o;
+}
+
 // modified from main.js
 simulateTicker=function(cc, manual)
 {
